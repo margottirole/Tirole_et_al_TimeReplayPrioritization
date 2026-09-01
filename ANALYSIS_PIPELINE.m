@@ -8,7 +8,7 @@
 % download ScientificColourMaps6 colour palettes to data folder (to replicate colour scheme in manuscript)
 
 %% USER CONFIG
-opts.dataFolder = ''; %'C:\Users\mario\Downloads\DRYAD' % path to figshare repo (link TBD)
+opts.dataFolder = ''; % path to figshare repo (link TBD)
 opts.elifeFolder = ''; % path to cloned https://github.com/bendor-lab/Elife_Tirole_Huelin_Gorriz_2022
 opts.scriptsFolder = ''; % path to cloned https://github.com/margottirole/Tirole_et_al_TimeReplayPrioritization
 
