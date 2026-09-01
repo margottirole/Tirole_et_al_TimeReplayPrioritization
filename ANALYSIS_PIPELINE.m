@@ -8,7 +8,7 @@
 % download ScientificColourMaps6 colour palettes to data folder (to replicate colour scheme in manuscript)
 
 %% USER CONFIG
-opts.data_folder = ''; % path to figshare repo (link TBD)
+opts.dataFolder = ''; %'C:\Users\mario\Downloads\DRYAD' % path to figshare repo (link TBD)
 opts.elifeFolder = ''; % path to cloned https://github.com/bendor-lab/Elife_Tirole_Huelin_Gorriz_2022
 opts.scriptsFolder = ''; % path to cloned https://github.com/margottirole/Tirole_et_al_TimeReplayPrioritization
 
@@ -27,21 +27,21 @@ opts.replay_rats= {'R839_Navi','R857_Polaris','R860_Rigel'};
 
 % adapt paths below based on where you saved the colour palettes
 % reward colours
-load(fullfile(opts.data_folder,'colour palettes','ScientificColourMaps6','berlin','DiscretePalettes','berlin10.mat'));
+load(fullfile(opts.dataFolder,'colour palettes','ScientificColourMaps6','berlin','DiscretePalettes','berlin10.mat'));
 opts.cdata_rew= [{berlin10(1,:)},...
        {berlin10(8,:)}];
 % recency colours
-load(fullfile(opts.data_folder,'colour palettes','ScientificColourMaps6','bamako','DiscretePalettes','bamako10.mat'));
+load(fullfile(opts.dataFolder,'colour palettes','ScientificColourMaps6','bamako','DiscretePalettes','bamako10.mat'));
 opts.cdata_rec= [{bamako10(1,:)},...
        {bamako10(6,:)},...
        {bamako10(8,:)}];
 
-cd(opts.data_folder)
+cd(opts.dataFolder)
 parameters= list_of_parameters;
 
 %% REORGANISE DATA FOR CONVENIENCE 
 % only needs to be done first time after downloading data
-files = dir(fullfile(opts.data_folder,'RAT*_SESSION*_*.mat')); 
+files = dir(fullfile(opts.dataFolder,'RAT*_SESSION*_*.mat')); 
 files= {files.name};
 for f = 1:length(files)
     t = strsplit(files{f},'_');
@@ -53,14 +53,14 @@ for f = 1:length(files)
 end
 
 foldersALL= load(fullfile(opts.scriptsFolder,"folders_ALL.mat")); % list of sessions from all rats
-foldersALL= foldersALL.folders;
+foldersALL= foldersALL.foldersALL;
 foldersREPLAY= load(fullfile(opts.scriptsFolder,"folders_REPLAY.mat")); % list of sessions from rats included in replay analyses
-foldersREPLAY= foldersREPLAY.folders;
+foldersREPLAY= foldersREPLAY.foldersALL;
 
 %% MAIN PROCESSING OF DATA
 for this_folder=1:length(foldersALL) % you may want to change to parfor for speed
 
-     cd(fullfile(opts.data_folder,foldersALL{this_folder}));
+     cd(fullfile(opts.dataFolder,foldersALL{this_folder}));
      disp(['processing: ' foldersALL{this_folder}]);
     
      % extract laps
@@ -85,6 +85,18 @@ for this_folder=1:length(foldersALL) % you may want to change to parfor for spee
          run_analysis_step('SORT_EVENTS');
      end
 
-     cd(opts.data_folder);
+     cd(opts.dataFolder);
 end
 disp('processing of all sessions: done.');
+
+%% ANALYSIS
+% this will take quite a while
+generateTables(opts,foldersALL,foldersREPLAY);
+
+%% MAKE FIGURES
+% main figures below
+makeFigure1(opts);
+makeFigure2(opts);
+makeFigure3(opts);
+makeFigure4(opts);
+makeFigure5(opts);

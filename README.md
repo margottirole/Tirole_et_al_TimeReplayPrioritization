@@ -3,11 +3,12 @@ CA1 recordings for the manuscript **“Time, but not reward, shapes replay-based
 episodic prioritization”**, currently available as a
 [bioRxiv preprint](https://doi.org/10.64898/2026.06.10.731494).
 
+[*last updated: September 1st, 2026*]
 
 ## System requirements
 
 - tested on MATLAB R2025b, requires the signal processing, statistics and machine learning, image processing and parallel computing toolboxes.
-- tested with R-4.4.2, requires packages afex, emmeans, multcomp, dplyr, lmerTest, optimx, tidyverse
+- tested with R-4.4.2, requires packages afex, emmeans, multcomp, dplyr, lmerTest, optimx, tidyverse, ggeffects, ggplot2
 - run on a 64-bit Windows 11 machine.
 
 No specialized hardware is required. A multicore workstation speeds up shuffle calculations.
@@ -82,5 +83,6 @@ After setting the paths and options at the beginning of
   > *Warning: Replay significance is assessed against three shuffle
    > distributions with 1000 shuffles each and can take several hours per
    > session.*
-3. **[WILL BE ADDED SOON]:** run the manuscript-level table-generation,
-   statistical-analysis and figure-reproduction scripts.
+3. run the **ANALYSIS** section to generate aggregated tables and statistics.
+  Statistical summary tables are saved under 'opts.dataFolder\NEW_TABLES\...'
+4. run the **MAKE FIGURES** section to reproduces panels from main figures
