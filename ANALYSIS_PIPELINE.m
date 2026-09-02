@@ -77,6 +77,7 @@ for this_folder=1:length(foldersALL) % you may want to change to parfor for spee
          run_analysis_step('REPLAY'); 
          % find significant events and sort by epoch
          run_analysis_step('SORT_EVENTS');
+         run_analysis_step('DECODING_ERRORS');
     
          % run procedure to obtain forward/reverse replay events
          run_analysis_step('DIRECTIONAL_FIELDS');
@@ -100,3 +101,11 @@ makeFigure2(opts);
 makeFigure3(opts);
 makeFigure4(opts);
 makeFigure5(opts);
+% and supplementary
+makeSuppFigure1(opts);
+makeSuppFigure2(opts);
+makeSuppFigure3(opts);
+makeSuppFigure4(opts);
+makeSuppFigure5(opts);
+makeSuppFigure6(opts);
+makeSuppFigure7(opts);

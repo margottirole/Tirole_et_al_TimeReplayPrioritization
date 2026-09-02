@@ -10,7 +10,6 @@ library(tidyverse)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-# Tiny "--key value" parser
 kv <- list(); i <- 1L
 while (i <= length(args)) {
   key <- args[[i]]

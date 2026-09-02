@@ -184,4 +184,9 @@ if strcmp(option,'SORT_EVENTS')
     sort_all_candidate_events('wcorr'); % sort candidate events by epoch as well
 end
 
+%% DECODING ERRORS
+if strcmp(option,'DECODING_ERRORS')
+    bayesian_decoding_error('method','leave one out');
+end
+
 end

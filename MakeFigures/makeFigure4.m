@@ -1,8 +1,5 @@
 function makeFigure4(opts)
 %% Figure 4
-foldersREPLAY= load(fullfile(opts.dataFolder,"folders_to_process_REPLAY.mat")); 
-foldersREPLAY= foldersREPLAY.folders;
-
 load(fullfile(opts.dataFolder,'colour palettes\ScientificColourMaps6\tofino\tofino.mat'));
 cdata_cell_types= tofino([20 size(tofino,1)/2 size(tofino,1)-20],:);
 cdata_cell_types(2,:)= [0.7 0.7 0.7];

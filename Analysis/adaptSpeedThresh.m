@@ -7,10 +7,10 @@ warning('off')
 TRACKS= table;
 TRACK_k= 1;
 
-master_folder= pwd;
+data_folder= pwd;
 for this_folder=1:length(folders)
 
-    cd([master_folder '\' folders{this_folder}]);
+    cd([data_folder '\' folders{this_folder}]);
     load('extracted_laps.mat');
     load('extracted_position.mat');
 
@@ -108,7 +108,7 @@ for this_folder=1:length(folders)
     end
 end
 
-cd(master_folder)
+cd(data_folder)
 end
 
 

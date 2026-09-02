@@ -678,6 +678,10 @@ for this_folder=1:length(folders)
         speed_imm_per_lap_REWSITE= arrayfun(@(x) nanmedian(speed_imm_per_lap_REWSITE(x:x+1)),1:2:numLaps*2);
         TRACKS.speed_imm_per_lap_REWSITE{TRACK_k}= speed_imm_per_lap_REWSITE;
 
+        % add decoding accuracy
+        TRACKS.decoding_medianError(TRACK_k)= estimated_position_test(this_replayed_track).median_error;
+        TRACKS.decoding_percent_small_error(TRACK_k)= estimated_position_test(this_replayed_track).percent_small_error;
+
         % REPLAY ANALYSES
         all_local_events= sorted_replay(this_replayed_track).event_time.immobilityTRACK(this_replayed_track).behaviour;
         Wscore_local_events= sorted_replay(this_replayed_track).replay_score.immobilityTRACK(this_replayed_track).score;

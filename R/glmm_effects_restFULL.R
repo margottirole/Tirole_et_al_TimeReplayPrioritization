@@ -6,7 +6,6 @@ library(optimx)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-# Tiny "--key value" parser
 kv <- list(); i <- 1L
 while (i <= length(args)) {
   key <- args[[i]]
@@ -19,7 +18,6 @@ while (i <= length(args)) {
 }
 getk <- function(k, default=NULL) if (!is.null(kv[[k]])) kv[[k]] else default
 
-# -------- CLI --------
 load_path <- getk("load_path")
 save_path <- getk("save_path")
 dep_name <- getk("dep_name")

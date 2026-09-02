@@ -3,7 +3,7 @@ CA1 recordings for the manuscript **“Time, but not reward, shapes replay-based
 episodic prioritization”**, currently available as a
 [bioRxiv preprint](https://doi.org/10.64898/2026.06.10.731494).
 
-[*last updated: September 1st, 2026*]
+[*last updated: September 2nd, 2026*]
 
 ## System requirements
 
@@ -85,4 +85,4 @@ After setting the paths and options at the beginning of
    > session.*
 3. run the **ANALYSIS** section to generate aggregated tables and statistics.
   Statistical summary tables are saved under 'opts.dataFolder\NEW_TABLES\...'
-4. run the **MAKE FIGURES** section to reproduces panels from main figures
+4. run the **MAKE FIGURES** section to reproduces panels from main and supplementary figures

@@ -10,7 +10,6 @@ library(ggplot2)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-# Tiny "--key value" parser
 kv <- list(); i <- 1L
 while (i <= length(args)) {
   key <- args[[i]]
@@ -261,4 +260,66 @@ ggsave(file.path(save_path,"LocalEvents_CorrData.png"), plot = g1, width = 6, he
 
 
 
+## PANELS FOR FIG S7
 
+laps_to_plot <- seq(1, 10, by = 2) 
+dt_TRACKS <- dt_TRACKS %>%
+  mutate(
+    localReplayCat = case_when(
+      numLocalActive == 0 ~ "0",
+      numLocalActive == 1 ~ "1",
+      numLocalActive == 2 ~ "2",
+      numLocalActive >= 3 ~ "3+"
+    ),
+    remoteReplayCat = case_when(
+      numRemoteActive == 0 ~ "0",
+      numRemoteActive == 1 ~ "1",
+      numRemoteActive == 2 ~ "2",
+      numRemoteActive >= 3 ~ "3+"
+    )
+  ) %>%
+  mutate(
+    localReplayCat = factor(localReplayCat, levels = c("0", "1", "2", "3+")),
+    remoteReplayCat = factor(remoteReplayCat, levels = c("0", "1", "2", "3+"))
+  )
+
+dt_TRACKS %>%
+  filter(
+    lap_number %in% laps_to_plot) %>%
+  count(cellcat, lap_number, localReplayCat)
+
+gLoc <- ggplot(
+  dt_TRACKS %>% filter(lap_number %in% laps_to_plot),
+  aes(localReplayCat, fieldCorr, fill = localReplayCat, group = interaction(localReplayCat, cellcat))
+) +
+  stat_summary(aes(group = interaction(localReplayCat, cellcat)),
+               position = position_dodge(width = 0.8),fun = median,geom = "point",colour = "black", size= 2)+
+  geom_boxplot(width = 0.2, whisker.colour = NA, outliers = FALSE) +
+  facet_grid(cellcat ~ lap_number) +  
+  theme_classic() +
+  labs(
+    x = "Number of local replay events including neuron",
+    y = "Map stability",
+    title = "Local replay x map stability across laps and cell categories"
+  ) + scale_fill_brewer(palette = "Purples")
+
+ggsave(file.path(save_path,"LocalEvents_BoxPLotsS7.png"), plot = gLoc, width = 6, height = 4, dpi = 600)
+
+
+# same for remote
+gRem <- ggplot(
+  dt_TRACKS %>% filter(lap_number %in% laps_to_plot, cellcat == "both"),
+  aes(remoteReplayCat, fieldCorr, fill = remoteReplayCat, group = interaction(remoteReplayCat, cellcat))
+) +
+  stat_summary(aes(group = interaction(remoteReplayCat, cellcat)),
+               position = position_dodge(width = 0.8),fun = median,geom = "point",colour = "black", size= 2)+
+  geom_boxplot(width = 0.2, whisker.colour = NA, outliers = FALSE) +
+  facet_grid( ~ lap_number) +  
+  theme_classic() +
+  labs(
+    x = "Number of remote replay events including neuron",
+    y = "Map stability",
+    title = "Remote replay x map stability across laps"
+  )+ scale_fill_brewer(palette = "Purples")
+
+ggsave(file.path(save_path,"RemoteEvents_BoxPLotsS7.png"), plot = gRem, width = 6, height = 4, dpi = 600)
